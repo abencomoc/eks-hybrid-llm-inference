@@ -55,7 +55,7 @@ terraform apply --auto-approve
 
 Terraform creates all required infrastructure and deploys the necessary cluster components to manage GPUs on both cloud and hybrid nodes.
 
-Main actions:
+Main actions performed by Terraform:
 
 **Create EKS Cluster**
 - VPC, subnets, security groups
