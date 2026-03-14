@@ -242,8 +242,5 @@ Open the URL in your browser to chat with **Llama 3.2 3B** running on the on-pre
 
 ---
 
-## Part 3 — Burst to Cloud
-
-*Coming soon.*
 
 
