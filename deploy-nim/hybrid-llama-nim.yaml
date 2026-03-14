@@ -1,0 +1,39 @@
+apiVersion: apps.nvidia.com/v1alpha1
+kind: NIMService
+metadata:
+  name: llama-3-2-3b
+  namespace: nim-service
+spec:
+  image:
+    repository: nvcr.io/nim/meta/llama-3.2-3b-instruct
+    tag: "1.10"
+    pullPolicy: IfNotPresent
+    pullSecrets:
+      - ngc-secret
+  authSecret: ngc-api-secret
+  env:
+  - name: NIM_MAX_MODEL_LEN
+    value: "4096"
+  storage:
+    emptyDir:
+      sizeLimit: 30Gi
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: eks.amazonaws.com/compute-type
+            operator: In
+            values:
+            - hybrid
+  resources:
+    limits:
+      nvidia.com/gpu: "1"
+      memory: "16Gi"
+    requests:
+      nvidia.com/gpu: "1"
+      memory: "16Gi"
+  expose:
+    service:
+      type: ClusterIP
+      port: 8000

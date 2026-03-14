@@ -1,0 +1,20 @@
+apiVersion: eks.amazonaws.com/v1
+kind: NodeClass
+metadata:
+  name: gpu-nodeclass
+spec:
+  role: ${node_iam_role_name}
+
+  # Use same subnets as EKS cluster private subnets
+  subnetSelectorTerms:
+%{ for subnet_id in private_subnet_ids ~}
+    - id: ${subnet_id}
+%{ endfor ~}
+
+  # Use same security group as EKS node security group
+  securityGroupSelectorTerms:
+    - id: ${node_security_group_id}
+
+  tags:
+    Name: gpu-nodeclass
+    Project: hybrid-llm-inference

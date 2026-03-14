@@ -1,0 +1,30 @@
+operator:
+  version: v25.10.1
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: eks.amazonaws.com/compute-type
+            operator: In
+            values:
+            - hybrid
+driver:
+  enabled: true
+  repository: nvcr.io/nvidia
+  image: driver
+  version: "580.126.16"
+  usePrecompiled: false
+
+toolkit:
+  enabled: true
+devicePlugin:
+  enabled: true
+gfd:
+  enabled: true
+migManager:
+  enabled: false
+nodeStatusExporter:
+  enabled: false
+dcgmExporter:
+  enabled: false
