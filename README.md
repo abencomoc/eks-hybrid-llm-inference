@@ -8,6 +8,30 @@ It demonstrates how EKS Hybrid Nodes lets you extend a Kubernetes cluster to inf
 
 ---
 
+## Architecture
+
+```
+┌─────────────────────────────────────────────┐
+│              EKS Control Plane              │
+│            hybrid-llm-eks-cluster           │
+└──────────────────────┬──────────────────────┘
+                       │
+          ┌────────────┴────────────┐
+          │                         │
+┌─────────▼──────────┐   ┌──────────▼─────────┐
+│  EKS Auto Mode     │   │  EKS Hybrid Nodes  │
+│  Cloud GPU Node    │   │  On-Prem GPU Node  │
+│  (g5/g6 via Auto)  │   │  (EC2 in remote    │
+│                    │   │   VPC via SSM)     │
+│  Gemma 2 2B NIM    │   │  Llama 3.2 3B NIM  │
+│  Open WebUI (ALB)  │   │ Open WebUI (:30080)│
+└────────────────────┘   └────────────────────┘
+     10.226.0.0/24            172.17.0.0/16
+                              pods: 172.18.0.0/16
+```
+
+---
+
 ## Prerequisites
 
 - AWS CLI configured with sufficient permissions
@@ -213,27 +237,4 @@ Open the URL in your browser to chat with **Llama 3.2 3B** running on the on-pre
 
 *Coming soon.*
 
----
-
-## Architecture
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    EKS Control Plane                        │
-│                  hybrid-llm-eks-cluster                     │
-└──────────────────────┬──────────────────────────────────────┘
-                       │
-          ┌────────────┴────────────┐
-          │                         │
-┌─────────▼──────────┐   ┌──────────▼─────────┐
-│  EKS Auto Mode     │   │  EKS Hybrid Nodes  │
-│  Cloud GPU Node    │   │  On-Prem GPU Node  │
-│  (g5/g6 via Auto)  │   │  (EC2 in remote    │
-│                    │   │   VPC via SSM)     │
-│  Gemma 2 2B NIM    │   │  Llama 3.2 3B NIM  │
-│  Open WebUI (ALB)  │   │ Open WebUI (:30080)│
-└────────────────────┘   └────────────────────┘
-     10.226.0.0/24            172.17.0.0/16
-                              pods: 172.18.0.0/16
-```
 
