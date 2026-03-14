@@ -112,6 +112,10 @@ spec:
   - key: nvidia.com/gpu
     operator: Exists
     effect: NoSchedule
+  - key: gpu-nodeclass
+    operator: Equal
+    value: "true"
+    effect: NoSchedule
   containers:
   - name: nvidia-smi
     image: nvidia/cuda:12.9.1-base-ubuntu20.04
