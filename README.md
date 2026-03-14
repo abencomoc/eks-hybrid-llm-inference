@@ -8,6 +8,17 @@ It demonstrates how EKS Hybrid Nodes lets you extend a Kubernetes cluster to inf
 
 ---
 
+## Prerequisites
+
+- AWS CLI configured with sufficient permissions
+- Terraform >= 1.3
+- `kubectl`
+- `helm`
+- An NGC API key from [ngc.nvidia.com](https://ngc.nvidia.com)
+- An EC2 key pair in the target region (default: `us-west-2`)
+
+---
+
 ## Part 1 — Create GPU-Enabled EKS Hybrid Cluster
 
 #### Step 1 — Run Terraform
@@ -39,8 +50,6 @@ Main actions:
 - NVIDIA drivers for the hybrid node OS
 - Container toolkit for containerd runtime
 - Kubernetes device plugin to expose GPUs to Kubernetes scheduler
-
-
 
 #### Step 2 — Configure kubectl
 
@@ -222,17 +231,9 @@ Open the URL in your browser to chat with **Llama 3.2 3B** running on the on-pre
 │  (g5/g6 via Auto)  │   │  (EC2 in remote    │
 │                    │   │   VPC via SSM)     │
 │  Gemma 2 2B NIM    │   │  Llama 3.2 3B NIM  │
-│  Open WebUI (ALB)  │   │  Open WebUI (:30080)│
+│  Open WebUI (ALB)  │   │ Open WebUI (:30080)│
 └────────────────────┘   └────────────────────┘
      10.226.0.0/24            172.17.0.0/16
                               pods: 172.18.0.0/16
 ```
 
-## Prerequisites
-
-- AWS CLI configured with sufficient permissions
-- Terraform >= 1.3
-- `kubectl`
-- `helm`
-- An NGC API key from [ngc.nvidia.com](https://ngc.nvidia.com)
-- An EC2 key pair in the target region (default: `us-west-2`)
