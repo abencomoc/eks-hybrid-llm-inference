@@ -238,7 +238,7 @@ aws ec2 describe-instances \
     --output text | awk '{print "http://"$1":30080"}'
 ```
 
-Open the URL in your browser to chat with **Llama 3.2 3B** running on the on-prem GPU node.
+Open the URL in your browser to chat with **Llama 3.2 3B** running on the hybrid (on-prem) GPU node.
 
 ---
 
