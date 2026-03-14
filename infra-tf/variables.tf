@@ -4,7 +4,6 @@ variable "kubernetes_version" {
   default     = "1.34"
 }
 
-
 variable "project_name" {
   description = "Name used as prefix for all resources"
   type        = string

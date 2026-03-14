@@ -89,7 +89,7 @@ kubectl get nodes -l eks.amazonaws.com/compute-type=hybrid
 
 #### Step 4 — Verify GPU Capacity on Both Nodes
 
-Run `nvidia-smi` on the cloud node (Auto Mode):
+Run `nvidia-smi` on both nodes:
 
 ```bash
 kubectl apply -f - <<EOF
@@ -123,14 +123,7 @@ spec:
     resources:
       limits:
         nvidia.com/gpu: "1"
-EOF
-kubectl logs nvidia-smi-cloud
-```
-
-Run `nvidia-smi` on the hybrid node (on-prem):
-
-```bash
-kubectl apply -f - <<EOF
+---
 apiVersion: v1
 kind: Pod
 metadata:
@@ -154,6 +147,18 @@ spec:
       limits:
         nvidia.com/gpu: "1"
 EOF
+```
+
+Wait for both pods to complete:
+
+```bash
+kubectl wait --for=jsonpath='{.status.phase}'=Succeeded pod/nvidia-smi-cloud pod/nvidia-smi-hybrid --timeout=300s
+```
+
+Review the logs:
+
+```bash
+kubectl logs nvidia-smi-cloud
 kubectl logs nvidia-smi-hybrid
 ```
 

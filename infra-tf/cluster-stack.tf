@@ -55,8 +55,8 @@ data "aws_availability_zones" "available" {
 }
 
 locals {
-  name    = var.project_name
-  region  = var.aws_region
+  name   = var.project_name
+  region = var.aws_region
 
   cluster_version = var.kubernetes_version
 

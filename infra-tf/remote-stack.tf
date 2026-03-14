@@ -89,11 +89,11 @@ resource "aws_launch_template" "hybrid_node" {
   key_name    = var.key_pair_name
 
   user_data = base64encode(templatefile("${path.module}/scripts/userdata.sh", {
-    kubernetes_version   = var.kubernetes_version
-    cluster_name         = module.eks.cluster_name
-    region               = local.region
-    ssm_activation_code  = aws_ssm_activation.hybrid_nodes.activation_code
-    ssm_activation_id    = aws_ssm_activation.hybrid_nodes.id
+    kubernetes_version  = var.kubernetes_version
+    cluster_name        = module.eks.cluster_name
+    region              = local.region
+    ssm_activation_code = aws_ssm_activation.hybrid_nodes.activation_code
+    ssm_activation_id   = aws_ssm_activation.hybrid_nodes.id
   }))
   block_device_mappings {
     device_name = "/dev/sda1"

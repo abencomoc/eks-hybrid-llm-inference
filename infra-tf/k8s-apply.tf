@@ -42,9 +42,10 @@ resource "helm_release" "gpu_operator" {
 
 resource "kubectl_manifest" "gpu_nodeclass" {
   yaml_body = templatefile("${path.module}/manifests/gpu-nodeclass.yaml", {
-    node_iam_role_name          = module.eks.node_iam_role_name
-    node_security_group_id      = module.eks.node_security_group_id
-    private_subnet_ids          = module.vpc.private_subnets
+    node_iam_role_name                = module.eks.node_iam_role_name
+    node_security_group_id            = module.eks.node_security_group_id
+    cluster_primary_security_group_id = module.eks.cluster_primary_security_group_id
+    private_subnet_ids                = module.vpc.private_subnets
   })
 
   depends_on = [module.eks]
